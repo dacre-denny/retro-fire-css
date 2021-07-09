@@ -6,7 +6,7 @@
 
 <body>
 
-    <canvas width="32" height="16"></canvas>
+    <canvas width="128" height="64"></canvas>
     <!-- 
         <div></div>
     -->
@@ -78,9 +78,10 @@
                     const r = x < w - 1 ? heat[index(x + 1, y)] : 0
 
                     // Turbulence 
-                    // const t = (1 - Math.random() * 0.5)
-                    const t = 1
-                    const f = (b * 0.75 + r * 0.1) * t
+                    const t = (1 - Math.random() * 0.1)
+                    
+                    // Final cell heat
+                    const f = (b * 0.975 + r * 0.025) * t
 
                     heat[index(x, y)] = f
                 }
@@ -102,7 +103,7 @@
 
             context.putImageData(buffer, 0, 0)
 
-            setTimeout(() => window.requestAnimationFrame(frame), 100)
+            setTimeout(() => window.requestAnimationFrame(frame), 50)
         }
 
         frame()
@@ -126,7 +127,7 @@
             color: rgb(255, 243, 154);
             color: rgb(255, 255, 255);
         }
-        
+
         div {
             background-image: paint(fire);
         }
