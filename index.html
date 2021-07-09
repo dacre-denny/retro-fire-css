@@ -1,23 +1,42 @@
 <html>
 
 <head>
-    <title>Test</title>
+    <title>CssFire</title>
 </head>
 
 <body>
 
+    <div></div>
+    <div></div>
     <canvas width="128" height="64"></canvas>
-    <!-- 
-        <div></div>
-    -->
 
     <script>
 
-        /*
-        if ('paintWorklet' in CSS) {
+        // if ('registerProperty' in CSS) {
+        //     CSS.registerProperty({
+        //         name: '--time',
+        //         syntax: '<number>',
+        //         inherits: false,
+        //         initialValue: 1
+        //     })
+        // }
 
+        if ('paintWorklet' in CSS) {
             CSS.paintWorklet.addModule('fire.js')
         }
+
+        const divs = document.querySelectorAll('div')
+        const foo = () => {
+            setTimeout(() => {
+for(const div of divs) {
+
+    div.style.setProperty('--time', 1)
+}
+                requestAnimationFrame(foo)
+            }, 100)
+        }
+        foo()
+        /*
         */
 
         const canvas = document.querySelector('canvas')
@@ -79,7 +98,7 @@
 
                     // Turbulence 
                     const t = (1 - Math.random() * 0.1)
-                    
+
                     // Final cell heat
                     const f = (b * 0.975 + r * 0.025) * t
 
@@ -91,8 +110,10 @@
             for (let x = 0; x < w; x++) {
                 for (let y = 0; y < h; y++) {
 
+                    // Heat intensity between 0.0 - 1.0
                     const intensity = heat[index(x, y)]
 
+                    // Achieve posterize effect between colors of a limited gradient palette
                     const color = Math.floor(intensity * (gradient.length / 3)) * 3
 
                     buffer.data[index(x, y) * 4 + 0] = gradient[color + 0]
@@ -111,8 +132,8 @@
 
     <style>
         canvas {
-            width: 400px;
-            height: 200px;
+            width: 800px;
+            height: 400px;
         }
 
         p {
@@ -130,6 +151,9 @@
 
         div {
             background-image: paint(fire);
+            --time:11;
+            height: 10rem;
+            width: 10rem;
         }
     </style>
 </body>
