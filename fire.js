@@ -1,124 +1,107 @@
 class FirePainter {
+  static get inputProperties() {
+    return [`--time`];
+  }
 
-    static get inputProperties() {
-        return [
-            `--time`,
-        ]
-    }
-    
-    static get inputArguments () {
-      return []
-    }
+  static PIXEL_SIZE = 2;
 
-    constructor() {
-        
-    }
+  static get inputArguments() {
+    return [];
+  }
 
-    simulate(context, w, h) {
-        
+  constructor() {
+    this.colorGradient = [
+      0, 0, 0, 45, 0, 0, 65, 0, 0, 90, 0, 0, 135, 0, 0, 184, 0, 0, 255, 60, 0,
+      255, 166, 0, 255, 225, 0, 255, 243, 154, 255, 255, 255
+    ];
+
+    this.simulationScale = 2;
+    this.displayScale = 1;
+  }
+
+  render(context, buffer, width, height, geometry) {
+    context.beginPath();
+    context.fillStyle = 'rgb(0,0,0)';
+    context.rect(0, 0, geometry.width, geometry.height);
+    context.fill();
+
+    // dedupe
+    const index = (x, y) => y * width + x;
+
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        const intensity = buffer[index(x, y)];
+        const color =
+          Math.floor(intensity * (this.colorGradient.length / 3)) * 3;
+
         context.beginPath();
-        context.fillStyle = 'rgb(0,0,0)'
-        context.rect(0, 0, w, h)
+        context.fillStyle = `rgb(${this.colorGradient[color + 0]},${
+          this.colorGradient[color + 1]
+        },${this.colorGradient[color + 2]})`;
+        // console.log('x=', x);
+        // console.log('y=', y);
+        context.rect(
+          x * FirePainter.PIXEL_SIZE,
+          y * FirePainter.PIXEL_SIZE,
+          FirePainter.PIXEL_SIZE,
+          FirePainter.PIXEL_SIZE
+        );
         context.fill();
-
-        const heat = new Float32Array(w * h)
-        heat.fill(0)
-
-        ///
-
-        const gradient = [
-            0, 0, 0,
-            45, 0, 0,
-            65, 0, 0,
-            90, 0, 0,
-            135, 0, 0,
-            184, 0, 0,
-            255, 60, 0,
-            255, 166, 0,
-            255, 225, 0,
-            255, 243, 154,
-            255, 255, 255,
-        ]
-
-        //
-
-        const index = (x, y) => (y * w) + x
-
-        const frame = () => {
-
-            // Set heat along bottom to start with
-            for (let x = 0; x < w; x++) {
-
-                const starter = Math.random() * 0.35 + 0.65
-
-                heat[index(x, h - 1)] = starter
-            }
-
-            // Simulate fire
-            for (let x = 0; x < w; x++) {
-                for (let y = 1; y < h - 1; y++) {
-
-                    // Read bottom and right cells for simulation
-                    const b = heat[index(x, y + 1)]
-                    const r = x < w - 1 ? heat[index(x + 1, y)] : 0
-
-                    // Turbulence 
-                    const t = (1 - Math.random() * 0.1)
-
-                    // Final cell heat
-                    const f = (b * 0.975 + r * 0.025) * t
-
-                    heat[index(x, y)] = f
-                }
-            }
-        }
-        
-        // Iterate
-        for(let i = 0; i < 100; i++) {
-            frame()
-        }
-        
-        // Transfer simulation to presentation
-        for (let x = 0; x < w; x++) {
-            for (let y = 0; y < h; y++) {
-
-                // Heat intensity between 0.0 - 1.0
-                const intensity = heat[index(x, y)]
-
-                // Achieve posterize effect between colors of a limited gradient palette
-                const color = Math.floor(intensity * (gradient.length / 3)) * 3              
-                
-                context.beginPath();
-                context.fillStyle = `rgb(${gradient[color + 0]},${gradient[color + 1]},${gradient[color + 2]})`;
-                context.rect(x, y, 1, 1);
-                context.fill();
-            }
-        }
+      }
     }
+  }
 
-    paint(ctx, geom, properties) {
-        // const lineWidth = Number(properties.get(`--time`))
-console.log(geom)
+  foo(buffer, width, height) {
+    // Find the nth (target ambient tempurate) root (height range that simulation runs over)
+    // to find attenuation rate from one row to the next, seeing each row is multiplied against
+    // the previous
+    const ambeint = 0.15;
+    const attenuation = Math.pow(ambeint, 1 / height);
 
-        this.simulate(ctx, geom.width, geom.height)
+    const index = (x, y) => y * width + x;
 
-        return
+    // Set heat along bottom to start with
+    for (let x = 0; x < width; x++) {
+      const VARIANCE = 0.125;
+      const starter = Math.random() * VARIANCE + (1 - VARIANCE);
 
-        // Use `ctx` as if it was a normal canvas
-        const colors = ['red', 'green', 'blue'];
-        // const size = lineWidth ;// Math.floor((Math.random() * 32) + 1);
-        const size = Math.floor((Math.random() * 32) + 1);
-        for (let y = 0; y < geom.height / size; y++) {
-            for (let x = 0; x < geom.width / size; x++) {
-                const color = colors[(x + y) % colors.length];
-                ctx.beginPath();
-                ctx.fillStyle = color;
-                ctx.rect(x * size, y * size, size, size);
-                ctx.fill();
-            }
-        }
-        
+      buffer[index(x, height - 1)] = starter;
     }
+    // return;
+    // Iterate from bottom to top
+    for (let y = height - 2; y >= 0; y--) {
+      // Set heat along bottom to start with
+      for (let x = 0; x < width; x++) {
+        // Read bottom and right cells for simulation
+        const b = buffer[index(x, y + 1)];
+        const br = buffer[index((x + 1) % width, y + 1)];
+
+        // Turbulence
+        const t = 1 - Math.random() * 0.125;
+
+        // Final cell heat
+        const CROSS_WIND = 0; // 0.125;
+        // const f = ((1 - CROSS_WIND) * b + CROSS_WIND * br) * attenuation * t;
+        const f = (Math.random() > 0.5 ? b : br) * attenuation * t;
+
+        buffer[index(x, y)] = f;
+      }
+    }
+  }
+
+  paint(ctx, geom, properties) {
+    const w = Math.ceil(geom.width / FirePainter.PIXEL_SIZE);
+    const h = Math.ceil(geom.height / FirePainter.PIXEL_SIZE);
+    const buffer = new Float32Array(w * h);
+
+    console.log('size', 'size=', FirePainter.PIXEL_SIZE);
+    console.log('geom', 'w=', geom.width, 'h=', geom.height);
+    console.log('buffer', 'w=', w, 'h=', h);
+
+    this.foo(buffer, w, h);
+
+    this.render(ctx, buffer, w, h, geom);
+  }
 }
 
 registerPaint('fire', FirePainter);
