@@ -1,4 +1,4 @@
-[![RetroFireCSS](assets/heading.png)](assets/heading.html)
+[![RetroFireCSS](assets/heading.png)](https://dacre-denny.github.io/retro-fire-css/assets/heading.html)
 
 ## Summary
 
@@ -6,15 +6,15 @@ Inspired from games of the 80's and 90's, RetroFireCSS applies a dynamically gen
 
 ### Demos
 
-[Heading showcase](assets/heading.html)
+[Heading showcase](https://dacre-denny.github.io/retro-fire-css/assets/heading.html)
 
-[Feature showcase](assets/features.html)
+[Feature showcase](https://dacre-denny.github.io/retro-fire-css/assets/feaures.html)
 
 ## Quick Start
 
 ```html
 <!-- Import the RetroFireCSS painter -->
-<script src="./src/lib.js"></script>
+<script src="/src/lib.js"></script>
 
 <!-- Apply RetroFireCSS painter -->
 <h1 style="background: paint(retro-fire);">I'm on fire</h1>
@@ -69,7 +69,7 @@ A few of the things I learnt from this experiment:
 
 ### Animation is not possible from Paint Worklet context
 
-My original goal was to achieve an animated fire effect [similar to this](assets/animated.html), via the PaintAPI. I discovered animation wasn't going to be possible due to `requestAnimationFrame`, `setTimeout` and `setInterval` not being available in the context of a Paint Worklet.
+My original goal was to achieve an animated fire effect [similar to this](https://dacre-denny.github.io/retro-fire-css/assets/animated.html), via the PaintAPI. I discovered animation wasn't going to be possible due to `requestAnimationFrame`, `setTimeout` and `setInterval` not being available in the context of a Paint Worklet.
 
 ### Paint Worklet's context is a subset of CanvasRenderingContext2D
 
