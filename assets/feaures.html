@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>RetroFireCSS</title>
+  </head>
+
+  <body>
+    <h1>RetroFireCSS</h1>
+    <section>
+      <h2>Element backgrouds</h2>
+      <h1>h1 on fire</h1>
+      <p>p on fire</p>
+      <button>button on fire</button>
+
+      <h2>Adaptive geometry</h2>
+      <div><span>1:1</span></div>
+      <div style="width: 10rem; height: 5rem"><span>2:1</span></div>
+      <div style="width: 6rem; height: 9rem"><span>2:3</span></div>
+
+      <h2>Pixel scale</h2>
+      <div style="--scale: 4"><span>4</span></div>
+      <div style="--scale: 20"><span>20</span></div>
+      <div style="--scale: 42"><span>42</span></div>
+
+      <h2>Ambient heat</h2>
+      <div style="--ambient: 0.1"><span>0.1</span></div>
+      <div style="--ambient: 0.5"><span>0.5</span></div>
+      <div style="--ambient: 1"><span>1.0</span></div>
+      <h2>Heat turbulence</h2>
+
+      <div style="--turbulence: 0"><span>0</span></div>
+      <div style="--turbulence: 0.25"><span>0.25</span></div>
+      <div style="--turbulence: 0.75"><span>0.75</span></div>
+
+      <h2>Fuel scatter</h2>
+      <div style="--scatter: 0"><span>0</span></div>
+      <div style="--scatter: 0.5"><span>0.5</span></div>
+      <div style="--scatter: 1"><span>1</span></div>
+    </section>
+
+    <script src="../src/lib.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: black;
+        color: white;
+        margin: 0;
+        padding: 1rem;
+      }
+
+      section {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      section > * {
+        color: inherit;
+        background-image: paint(retro-fire);
+      }
+      section > h2 {
+        background: none;
+        grid-column: 1/4;
+        font-size: medium;
+        margin: 0;
+      }
+      section > div {
+        height: 10rem;
+        position: relative;
+        border-radius: 0.25rem;
+      }
+      section > div > span {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-weight: bold;
+        font-size: x-small;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        color: black;
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+    </style>
+  </body>
+</html>

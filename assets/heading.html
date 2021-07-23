@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>RetroFireCSS</title>
+    <script src="../src/lib.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        margin: 0;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 3rem;
+        height: 100%;
+        box-sizing: border-box;
+
+        --scale: 4;
+        --scatter: 0.25;
+        --turbulence: 0.25;
+        --ambient: 0.125;
+
+        background: paint(retro-fire);
+      }
+
+      div > * {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h1>RetroFireCSS</h1>
+      <h4>Retro Fire Effect using the Paint API</h4>
+    </div>
+  </body>
+</html>
