@@ -1,23 +1,17 @@
 <html>
   <head>
-    <title>CssFire</title>
+    <title>Animated fire</title>
+    <style>
+      canvas {
+        width: 256px;
+        height: 128px;
+      }
+    </style>
   </head>
-  <style></style>
   <body>
-    <
-    <div style="width: 120px; height: 136px; --fire-scale: -1"></div>
-    <div style="width: 120px; height: 136px; --fire-scale: 4"></div>
-    <div style="width: 120px; height: 56px"></div>
-    <div style="width: 420px; height: 56px"></div>
-    <div style="width: 420px; height: 16px"></div>
-    <div style="width: 42px; height: 256px"></div>
     <canvas width="128" height="64"></canvas>
 
     <script>
-      if ('paintWorklet' in CSS) {
-        CSS.paintWorklet.addModule('fire.js');
-      }
-
       const canvas = document.querySelector('canvas');
       const context = canvas.getContext('2d');
 
@@ -31,16 +25,12 @@
 
       heat.fill(0);
 
-      ///
-
       const gradient = [
         0, 0, 0, 45, 0, 0, 65, 0, 0, 90, 0, 0, 135, 0, 0, 184, 0, 0, 255, 60, 0,
         255, 166, 0, 255, 225, 0, 255, 243, 154, 255, 255, 255
       ];
 
       const colors = gradient.length / 3;
-      ///
-
       const index = (x, y) => y * w + x;
 
       const frame = () => {
@@ -94,31 +84,5 @@
 
       frame();
     </script>
-
-    <style>
-      canvas {
-        width: 800px;
-        height: 400px;
-      }
-
-      p {
-        color: rgb(0, 0, 0);
-        color: rgb(66, 0, 0);
-        color: rgb(90, 0, 0);
-        color: rgb(135, 0, 0);
-        color: rgb(184, 0, 0);
-        color: rgb(255, 60, 0);
-        color: rgb(255, 166, 0);
-        color: rgb(255, 225, 0);
-        color: rgb(255, 243, 154);
-        color: rgb(255, 255, 255);
-      }
-
-      div {
-        background-image: paint(fire);
-        height: 10rem;
-        width: 10rem;
-      }
-    </style>
   </body>
 </html>
