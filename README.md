@@ -53,9 +53,9 @@ The following (optional) CSS variables provide per element control over renderin
 ## Examples
 
 <div style="display:flex; flex-direction:row; gap:1rem; max-width:100%;">
-<img width="33%" src="assets/gallery-0.png"/>
-<img width="33%" src="assets/gallery-1.png"/>
-<img width="33%" src="assets/gallery-2.png"/>
+<img width="33%" src="assets/example-0.png" alt="Example of RetroFireCSS result"/>
+<img width="33%" src="assets/example-1.png" alt="Example of RetroFireCSS result"/>
+<img width="33%" src="assets/example-2.png" alt="Example of RetroFireCSS result"/>
 </div>
 <br/>
 
