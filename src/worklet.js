@@ -1,8 +1,8 @@
 const PARAMETER_PROPERTIES = {
-  scale: '--scale',
-  ambient: '--ambient',
-  turbulence: '--turbulence',
-  scatter: '--scatter'
+  scale: '--fire-scale',
+  ambient: '--fire-ambient',
+  turbulence: '--fire-turbulence',
+  scatter: '--fire-scatter'
 };
 
 const THERMAL_GRADIENT = [

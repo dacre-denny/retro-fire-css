@@ -24,8 +24,12 @@ Inspired from games of the 80's and 90's, RetroFireCSS applies a dynamically gen
 
 - Fire is dynamically rendered each time element is redrawn
 - Adaptive to dimensions of element
-- Accepts simulation parameters; `ambient`, `turbulence`, `scatter`
-- Accepts rendering parameters; `scale`
+- Accepts simulation parameters;
+  - `--fire-ambient`
+  - `--fire-turbulence`
+  - `--fire-scatter`
+- Accepts rendering parameters;
+  - `--fire-scale`
 
 ## API
 
@@ -34,16 +38,16 @@ The following (optional) CSS variables provide per element control over renderin
 ```css
 .retro-fire-background {
   /* Rendering pixelation [1-100] */
-  --scale: 4;
+  --fire-scale: 4;
 
   /* Randomize fuel distribution [0.0-1.0] */
-  --scatter: 0.25;
+  --fire-scatter: 0.25;
 
   /* Scale randomized heat diffusion [0.0-1.0] */
-  --turbulence: 0.25;
+  --fire-turbulence: 0.25;
 
   /* Ambient heat [0.0-1.0] */
-  --ambient: 0.125;
+  --fire-ambient: 0.125;
 
   /* Apply retro fire worklet */
   background: paint(retro-fire);
