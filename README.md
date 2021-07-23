@@ -8,7 +8,7 @@ Inspired from games of the 80's and 90's, RetroFireCSS applies a dynamically gen
 
 [Heading showcase](assets/heading.html)
 
-[Feature showcase](assets/feaures.html)
+[Feature showcase](assets/features.html)
 
 ## Quick Start
 
