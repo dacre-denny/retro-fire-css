@@ -8,7 +8,7 @@ Inspired from games of the 80's and 90's, RetroFireCSS applies a dynamically gen
 
 [Heading showcase](https://dacre-denny.github.io/retro-fire-css/assets/heading.html)
 
-[Feature showcase](https://dacre-denny.github.io/retro-fire-css/assets/feaures.html)
+[Feature showcase](https://dacre-denny.github.io/retro-fire-css/assets/features.html)
 
 ## Quick Start
 
